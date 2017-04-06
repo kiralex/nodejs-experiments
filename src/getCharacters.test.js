@@ -26,7 +26,7 @@ test('test of getbody', done => {
   );
 });
 
-test('test of characters', done => {
+test('test of characters', () => {
   const response = JSON.stringify({
     count: 6,
     results: [
@@ -50,5 +50,4 @@ test('test of characters', done => {
     expect(generatedJSON.characters[i]).toBe(expected.characters[i]);
     i++;
   }
-  done();
 });
