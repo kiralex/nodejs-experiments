@@ -1,9 +1,9 @@
-import http from 'http';
+import https from 'https';
 
 const getBody = url =>
   new Promise(function(resolve, reject) {
     let temp = '';
-    http.get(url, function(res) {
+    https.get(url, function(res) {
       res.on('data', data => {
         temp += data;
       });

@@ -1,7 +1,7 @@
 import nock from 'nock';
 import * as GetCharacters from './getCharacters';
 
-const url = 'http://swapi.co';
+const url = 'https://swapi.co';
 const request = '/api/people/?format=json';
 
 test('test of characters', () => {

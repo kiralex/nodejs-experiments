@@ -6,7 +6,8 @@
   "scripts": {
     "start": "babel-node src/index.js",
     "test": "jest",
-    "test:watch": "jest --watch --coverage"
+    "test:watch": "jest --watch --coverage",
+    "reddit": "babel-node src/getNewSubreddit.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,9 @@
     "babel-preset-es2017": "^6.22.0",
     "koa-router": "^7.1.1",
     "koa2": "^2.0.0-alpha.7",
-    "nock": "^9.0.11"
+    "lodash": "^4.17.4",
+    "nock": "^9.0.11",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
@@ -35,8 +38,8 @@
     "collectCoverageFrom": [
       "src/**/*.js"
     ],
-    "coveragePathIgnorePatterns" : [
-        "src/index.js"
+    "coveragePathIgnorePatterns": [
+      "src/index.js"
     ]
   }
 }

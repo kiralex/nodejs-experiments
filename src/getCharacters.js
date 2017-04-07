@@ -1,6 +1,6 @@
 import getBody from "./webUtils";
 
-const urlPeople = 'http://swapi.co/api/people/?format=json';
+const urlPeople = 'https://swapi.co/api/people/?format=json';
 
 function charactersToJson(response) {
   const res = {};
