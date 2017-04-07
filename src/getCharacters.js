@@ -1,26 +1,6 @@
-import Koa from 'koa2';
-import KoaRouter from 'koa-router';
-import http from 'http';
+import getBody from "./webUtils";
 
-const app = new Koa();
-const router = KoaRouter();
 const urlPeople = 'http://swapi.co/api/people/?format=json';
-
-const getBody = url =>
-  new Promise(function(resolve, reject) {
-    let temp = '';
-    http.get(url, function(res) {
-      res.on('data', data => {
-        temp += data;
-      });
-      res.on('end', () => {
-        resolve(temp);
-      });
-      res.on('error', e => {
-        reject(e);
-      });
-    });
-  });
 
 function charactersToJson(response) {
   const res = {};
@@ -49,17 +29,5 @@ async function characters(ctx) {
     },
   );
 }
-async function home(ctx) {
-  ctx.body = 'Usage : /characters | /timebased';
-}
 
-function run() {
-  router.get('/', home);
-  router.get('/characters', characters);
-  app.use(router.routes());
-  app.listen(3000);
-  console.log('Server started.');
-  console.log('Listening on port 3000');
-}
-
-export { getBody, characters, charactersToJson, run };
+export { characters, charactersToJson };
