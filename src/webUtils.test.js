@@ -1,5 +1,5 @@
 import nock from 'nock';
-import getBody from "./webUtils";
+import getBody from './webUtils';
 
 const url = 'https://swapi.co';
 const request = '/api/people/?format=json';

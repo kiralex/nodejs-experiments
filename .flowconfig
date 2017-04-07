@@ -1,0 +1,10 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/**/*
+./node_modules/**/*.js
+[include]
+./src/**/*.js
+[libs]
+flow-typed
+
+[options]
+module.system.node.resolve_dirname=apps

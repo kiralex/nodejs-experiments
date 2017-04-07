@@ -1,7 +1,7 @@
 import * as GetCharacters from './getCharacters';
 import Koa from 'koa2';
 import KoaRouter from 'koa-router';
-import * as GetNewSubreddit from './getNewSubreddit'
+import * as GetNewSubreddit from './getNewSubreddit';
 
 const app = new Koa();
 const router = KoaRouter();

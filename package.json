@@ -6,8 +6,9 @@
   "scripts": {
     "start": "babel-node src/index.js",
     "test": "jest",
-    "test:watch": "jest --watch --coverage",
-    "reddit": "babel-node src/getNewSubreddit.js"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,10 @@
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.43.1",
+    "flow-typed": "^2.0.0",
     "jest": "^19.0.2"
   },
   "jest": {

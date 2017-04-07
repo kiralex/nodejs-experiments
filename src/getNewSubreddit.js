@@ -39,24 +39,22 @@ function isEqual(elem1, elem2) {
   return elem1.id == elem2.id;
 }
 
-function getUnionEntries(elem1, elem2){
+function getUnionEntries(elem1, elem2) {
   return _.uniqWith(_.union(elem1, elem2), isEqual);
 }
 
-function getNewEntries(union, old){
-  return _.differenceWith(union, old, isEqual)
+function getNewEntries(union, old) {
+  return _.differenceWith(union, old, isEqual);
 }
 
-function getRemovedEntries(union, news){
+function getRemovedEntries(union, news) {
   return _.differenceWith(union, news, isEqual);
 }
-
 
 async function getNewSubreddit() {
   try {
     const response = await getBody(fullURL);
     const array = arrayFromSubreddit(response);
-
 
     const union = getUnionEntries(globalArray.elements, array.elements);
     const ajoute = getNewEntries(union, globalArray.elements);
@@ -85,14 +83,22 @@ async function getNewSubreddit() {
   }
 }
 
-function run(){
+function run() {
   getNewSubreddit();
   setInterval(getNewSubreddit, 5000);
 }
 
-function getGlobalArrray(){
+function getGlobalArrray() {
   return globalArray;
 }
 
 export default run;
-export {run, getGlobalArrray, arrayFromSubreddit, isEqual,getUnionEntries, getNewEntries, getRemovedEntries};
+export {
+  run,
+  getGlobalArrray,
+  arrayFromSubreddit,
+  isEqual,
+  getUnionEntries,
+  getNewEntries,
+  getRemovedEntries,
+};

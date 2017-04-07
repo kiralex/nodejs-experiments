@@ -11,12 +11,10 @@ const getBody = url =>
         resolve(temp);
       });
       res.on('error', e => {
-        console.log('=====================================');
         reject(e);
       });
 
       res.on('abort', e => {
-        console.log('=====================================');
         reject(e);
       });
     });

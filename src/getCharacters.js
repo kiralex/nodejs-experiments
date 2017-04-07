@@ -1,4 +1,4 @@
-import getBody from "./webUtils";
+import getBody from './webUtils';
 
 const urlPeople = 'https://swapi.co/api/people/?format=json';
 
@@ -19,7 +19,7 @@ async function characters(ctx) {
   return getBody(urlPeople).then(
     value => {
       ctx.response.type = 'json';
-      ctx.body = JSON.stringify(charactersToJson(value) );
+      ctx.body = JSON.stringify(charactersToJson(value));
     },
     e => {
       ctx.response.type = 'json';
