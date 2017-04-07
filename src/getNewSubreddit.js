@@ -34,6 +34,7 @@ function arrayFromSubreddit(response) {
   return array;
 }
 
+// compare only the ID
 function isEqual(elem1, elem2) {
   return elem1.id == elem2.id;
 }
@@ -94,4 +95,4 @@ function getGlobalArrray(){
 }
 
 export default run;
-export {run, getGlobalArrray, arrayFromSubreddit, isEqual};
+export {run, getGlobalArrray, arrayFromSubreddit, isEqual,getUnionEntries, getNewEntries, getRemovedEntries};
