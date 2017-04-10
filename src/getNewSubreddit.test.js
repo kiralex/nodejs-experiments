@@ -6,8 +6,6 @@ import {
   getRemovedEntries,
 } from './getNewSubreddit';
 import fs from 'fs';
-// to use deep isEqual
-import _ from 'lodash';
 
 // is equal
 test('test of isEqual', () => {
