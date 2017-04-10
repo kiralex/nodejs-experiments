@@ -2,7 +2,6 @@
 <PROJECT_ROOT>/node_modules/**/*
 ./node_modules/**/*.js
 [include]
-./src/**/*.js
 [libs]
 flow-typed
 

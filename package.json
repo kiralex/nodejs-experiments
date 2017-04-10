@@ -27,9 +27,7 @@
     "babel-preset-es2017": "^6.22.0",
     "koa-router": "^7.1.1",
     "koa2": "^2.0.0-alpha.7",
-    "lodash": "^4.17.4",
-    "nock": "^9.0.11",
-    "underscore": "^1.8.3"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
@@ -37,7 +35,8 @@
     "flow": "^0.2.3",
     "flow-bin": "^0.43.1",
     "flow-typed": "^2.0.0",
-    "jest": "^19.0.2"
+    "jest": "^19.0.2",
+    "nock": "^9.0.11"
   },
   "jest": {
     "collectCoverageFrom": [
