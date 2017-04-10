@@ -2,9 +2,9 @@ import getBody from './webUtils';
 
 const urlPeople = 'https://swapi.co/api/people/?format=json';
 
-function charactersToJson(response) {
+function charactersToJson(response : string) {
   const res = {};
-  const json = JSON.parse(response);
+  const json : { results : Array<{name: string}> } = JSON.parse(response);
   res['error'] = false;
   res.characters = [];
   json.results.forEach(elem => {
@@ -14,7 +14,7 @@ function charactersToJson(response) {
   return res;
 }
 
-async function characters(ctx) {
+async function characters(ctx : { body: string, response: { type: string } }) {
   const res = {};
   return getBody(urlPeople).then(
     value => {

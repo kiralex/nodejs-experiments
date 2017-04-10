@@ -21,9 +21,21 @@ let globalArray = {
   length: 0,
   elements: [],
 };
-function arrayFromSubreddit(response) {
-  const jsonResponse = JSON.parse(response);
-  const array = {
+function arrayFromSubreddit(response: string) {
+  const jsonResponse: {
+    data: {
+      children: Array<{
+        data: {
+          id: string,
+          title: string,
+        },
+      }>,
+    },
+  } = JSON.parse(response);
+  const array: {
+    length: number,
+    elements: Array<{ id: string, title: string }>,
+  } = {
     length: 0,
     elements: [],
   };
@@ -37,32 +49,45 @@ function arrayFromSubreddit(response) {
 }
 
 // compare only the ID
-function isEqual(elem1, elem2) {
+function isEqual(elem1: { id: string }, elem2: { id: string }) {
   return elem1.id == elem2.id;
 }
 
-function getUnionEntries(elem1, elem2){
+function getUnionEntries(
+  elem1: Array<{ id: string, title: string }>,
+  elem2: Array<{ id: string, title: string }>,
+) {
   return _.uniqWith(_.union(elem1, elem2), isEqual);
 }
 
-function getNewEntries(union, old){
-  return _.differenceWith(union, old, isEqual)
+function getNewEntries(
+  union: Array<{ id: string, title: string }>,
+  old: Array<{ id: string, title: string }>,
+) {
+  return _.differenceWith(union, old, isEqual);
 }
 
-function getRemovedEntries(union, news){
+function getRemovedEntries(
+  union: Array<{ id: string, title: string }>,
+  news: Array<{ id: string, title: string }>,
+) {
   return _.differenceWith(union, news, isEqual);
 }
 
-
 async function getNewSubreddit() {
   try {
-    const response = await getBody(fullURL);
-    const array = arrayFromSubreddit(response);
+    const response: string = await getBody(fullURL);
+    const array: {
+      length: number,
+      elements: Array<{ id: string, title: string }>,
+    } = arrayFromSubreddit(response);
 
-
-    const union = getUnionEntries(globalArray.elements, array.elements);
-    const ajoute = getNewEntries(union, globalArray.elements);
-    const retire = getRemovedEntries(union, array.elements);
+    const union: Array<{ id: string, title: string }> = getUnionEntries(
+      globalArray.elements,
+      array.elements,
+    );
+    const ajoute: Array<{ id: string, title: string }> = getNewEntries(union, globalArray.elements);
+    const retire: Array<{ id: string, title: string }> = getRemovedEntries(union, array.elements);
 
     console.log(new Date().toLocaleTimeString());
 
@@ -87,14 +112,22 @@ async function getNewSubreddit() {
   }
 }
 
-function run(){
+function run() {
   getNewSubreddit();
   setInterval(getNewSubreddit, 5000);
 }
 
-function getGlobalArrray(){
+function getGlobalArrray() {
   return globalArray;
 }
 
 export default run;
-export {run, getGlobalArrray, arrayFromSubreddit, isEqual,getUnionEntries, getNewEntries, getRemovedEntries};
+export {
+  run,
+  getGlobalArrray,
+  arrayFromSubreddit,
+  isEqual,
+  getUnionEntries,
+  getNewEntries,
+  getRemovedEntries,
+};

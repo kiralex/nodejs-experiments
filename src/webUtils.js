@@ -1,8 +1,8 @@
 import https from 'https';
 
 const getBody = url =>
-  new Promise(function(resolve, reject) {
-    let temp = '';
+  new Promise(function(resolve: string, reject) {
+    let temp: string = '';
     https.get(url, function(res) {
       res.on('data', data => {
         temp += data;

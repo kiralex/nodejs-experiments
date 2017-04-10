@@ -19,7 +19,7 @@ test('test of isEqual', () => {
 });
 
 test('test of arrayFromSubreddit', () => {
-  const json = fs.readFileSync('src/getNewSubreddit.example.json', 'utf8');
+  const json : string = fs.readFileSync('src/getNewSubreddit.example.json', 'utf8');
 
   const expected = {
     length: 2,

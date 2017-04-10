@@ -3,18 +3,20 @@
 import * as GetCharacters from './getCharacters';
 import Koa from 'koa2';
 import KoaRouter from 'koa-router';
-import * as GetNewSubreddit from './getNewSubreddit'
+import * as GetNewSubreddit from './getNewSubreddit';
 
 const app = new Koa();
 const router = KoaRouter();
 
-async function home(ctx) {
+// @flow
+async function home(ctx: { body: string }) {
   ctx.body = 'Usage : /characters | /timebased';
 }
 
-async function timebased(ctx) {
+// @flow
+async function timebased(ctx: { body: string, response: { type: string } }) {
   ctx.response.type = 'json';
-  ctx.body = GetNewSubreddit.getGlobalArrray();
+  ctx.body = JSON.stringify(GetNewSubreddit.getGlobalArrray());
 }
 
 function run() {
