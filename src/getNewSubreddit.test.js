@@ -21,29 +21,23 @@ test('test of isEqual', () => {
 });
 
 test('test of arrayFromSubreddit', () => {
-  try {
-    const json = fs.readFileSync('src/getNewSubreddit.example.json', 'utf8');
+  const json = fs.readFileSync('src/getNewSubreddit.example.json', 'utf8');
 
-    const expected = {
-      length: 2,
-      elements: [
-        {
-          id: '640azj',
-          title: 'Hey Russia',
-        },
-        {
-          id: '640ax9',
-          title: "Hey Russia, don't come to school tomorrow",
-        },
-      ],
-    };
+  const expected = {
+    length: 2,
+    elements: [
+      {
+        id: '640azj',
+        title: 'Hey Russia',
+      },
+      {
+        id: '640ax9',
+        title: "Hey Russia, don't come to school tomorrow",
+      },
+    ],
+  };
 
-    expect(_.isEqual(arrayFromSubreddit(json), expected)).toBe(true);
-  } catch (err) {
-    console.error(
-      'Impossible de lire le fichier src/getNewSubreddit.example.json',
-    );
-  }
+  expect(arrayFromSubreddit(json)).toEqual(expected);
 });
 
 test('test of getUnionEntries', () => {
@@ -56,7 +50,7 @@ test('test of getUnionEntries', () => {
   const arr1 = [elem1, elem2];
   const arr2 = [elem2, elem3, elem4];
 
-  expect(_.isEqual(getUnionEntries(arr1, arr2), union)).toBe(true);
+  expect(getUnionEntries(arr1, arr2)).toEqual(union);
 });
 
 test('test of getNewEntries', () => {
@@ -71,7 +65,7 @@ test('test of getNewEntries', () => {
   const arr2 = [elem2, elem3];
   const union = getUnionEntries(arr1, arr2);
 
-  expect(_.isEqual(getNewEntries(union, arr1), news)).toBe(true);
+  expect(getNewEntries(union, arr1)).toEqual(news);
 });
 
 test('test of getRemovedEntries', () => {
@@ -86,5 +80,5 @@ test('test of getRemovedEntries', () => {
   const arr2 = [elem2, elem3];
   const union = getUnionEntries(arr1, arr2);
 
-  expect(_.isEqual(getRemovedEntries(union, arr2), news)).toBe(true);
+  expect(getRemovedEntries(union, arr2)).toEqual(news);
 });
