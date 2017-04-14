@@ -3,6 +3,8 @@
 import getBody from './webUtils';
 import _ from 'lodash';
 
+import type {subRedditTType} from '../types';
+
 const url = 'https://www.reddit.com/r/';
 const subReddit = 'funny';
 const type = 'new';
@@ -74,6 +76,8 @@ function getRemovedEntries(
   return _.differenceWith(union, news, isEqual);
 }
 
+
+
 async function getNewSubreddit() {
   try {
     const response: string = await getBody(fullURL);
@@ -86,8 +90,8 @@ async function getNewSubreddit() {
       globalArray.elements,
       array.elements,
     );
-    const ajoute: Array<{ id: string, title: string }> = getNewEntries(union, globalArray.elements);
-    const retire: Array<{ id: string, title: string }> = getRemovedEntries(union, array.elements);
+    const ajoute: subRedditTType[] = getNewEntries(union, globalArray.elements);
+    const retire: Array<subRedditTType> = getRemovedEntries(union, array.elements);
 
     console.log(new Date().toLocaleTimeString());
 
