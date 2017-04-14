@@ -1,0 +1,2 @@
+// @flow
+export type subRedditTType = { id: number, title: string };
