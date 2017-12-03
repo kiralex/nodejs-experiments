@@ -3,21 +3,16 @@
 import getBody from './webUtils';
 import _ from 'lodash';
 
-import type {subRedditTType} from '../types';
+import type { subRedditTType } from '../types';
+import type { Comparator } from 'lodash';
 
 const url = 'https://www.reddit.com/r/';
 const subReddit = 'funny';
 const type = 'new';
 const apiType = '.json';
 const nbResults = '10';
-const fullURL = url +
-  subReddit +
-  '/' +
-  type +
-  '/' +
-  apiType +
-  '?limit=' +
-  nbResults;
+const fullURL =
+  url + subReddit + '/' + type + '/' + apiType + '?limit=' + nbResults;
 
 let globalArray = {
   length: 0,
@@ -36,7 +31,7 @@ function arrayFromSubreddit(response: string) {
   } = JSON.parse(response);
   const array: {
     length: number,
-    elements: Array<{ id: string, title: string }>,
+    elements: Array<subRedditTType>,
   } = {
     length: 0,
     elements: [],
@@ -44,54 +39,64 @@ function arrayFromSubreddit(response: string) {
   let elem = '';
   for (let i = 0; i < jsonResponse.data.children.length; i++) {
     elem = jsonResponse.data.children[i].data;
-    array.elements.push({ id: elem.id, title: elem.title });
+    // $FlowFixMe
+    const id: number = elem.id;
+    const title: string = elem.title;
+    array.elements.push({ id, title });
     array.length += 1;
   }
   return array;
 }
 
 // compare only the ID
-function isEqual(elem1: { id: string }, elem2: { id: string }) {
+const isEqual: Comparator<any> = (
+  elem1: { id: string },
+  elem2: { id: string },
+) => {
   return elem1.id == elem2.id;
-}
+};
 
 function getUnionEntries(
-  elem1: Array<{ id: string, title: string }>,
-  elem2: Array<{ id: string, title: string }>,
+  elem1: Array<subRedditTType>,
+  elem2: Array<subRedditTType>,
 ) {
   return _.uniqWith(_.union(elem1, elem2), isEqual);
 }
 
 function getNewEntries(
-  union: Array<{ id: string, title: string }>,
-  old: Array<{ id: string, title: string }>,
+  union: Array<subRedditTType>,
+  old: Array<subRedditTType>,
 ) {
   return _.differenceWith(union, old, isEqual);
 }
 
 function getRemovedEntries(
-  union: Array<{ id: string, title: string }>,
-  news: Array<{ id: string, title: string }>,
+  union: Array<subRedditTType>,
+  news: Array<subRedditTType>,
 ) {
   return _.differenceWith(union, news, isEqual);
 }
-
-
 
 async function getNewSubreddit() {
   try {
     const response: string = await getBody(fullURL);
     const array: {
       length: number,
-      elements: Array<{ id: string, title: string }>,
+      elements: Array<subRedditTType>,
     } = arrayFromSubreddit(response);
 
-    const union: Array<{ id: string, title: string }> = getUnionEntries(
+    const union: Array<subRedditTType> = getUnionEntries(
       globalArray.elements,
       array.elements,
     );
-    const ajoute: subRedditTType[] = getNewEntries(union, globalArray.elements);
-    const retire: Array<subRedditTType> = getRemovedEntries(union, array.elements);
+    const ajoute: Array<subRedditTType> = getNewEntries(
+      union,
+      globalArray.elements,
+    );
+    const retire: Array<subRedditTType> = getRemovedEntries(
+      union,
+      array.elements,
+    );
 
     console.log(new Date().toLocaleTimeString());
 
